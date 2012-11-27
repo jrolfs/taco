@@ -1,3 +1,7 @@
+v0.0.4
+======
+* Don't depend on node-stringprep... it won't install on heroku
+
 v0.0.3
 ======
 * Depend explicitly on node-stringprep
