@@ -1,3 +1,7 @@
+v0.0.6
+======
+* Remove most default scripts
+
 v0.0.5
 ======
 * Update procfile to properly match settings
