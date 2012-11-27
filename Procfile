@@ -1,1 +1,1 @@
-web: bin/hubot -a hipchat -n mav
+web: bin/hubot --adapter hipchat
