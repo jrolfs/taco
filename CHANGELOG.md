@@ -1,3 +1,8 @@
+v0.0.7
+======
+* Revert removal of hubot-scripts from package.json
+* Remove default scripts from autoloaded scripts/ directory
+
 v0.0.6
 ======
 * Remove most default scripts
