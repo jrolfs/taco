@@ -1,3 +1,7 @@
+v0.0.8
+======
+* Properly load redis-brain
+
 v0.0.7
 ======
 * Revert removal of hubot-scripts from package.json
