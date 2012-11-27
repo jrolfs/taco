@@ -1,3 +1,7 @@
+v0.0.5
+======
+* Update procfile to properly match settings
+
 v0.0.4
 ======
 * Don't depend on node-stringprep... it won't install on heroku
