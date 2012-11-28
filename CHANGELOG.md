@@ -1,3 +1,7 @@
+v0.1.0
+======
+* Add moar grumpycat
+
 v0.0.8
 ======
 * Properly load redis-brain
