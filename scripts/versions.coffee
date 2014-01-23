@@ -12,4 +12,4 @@ module.exports = (robot) ->
         msg.send "#{body} - https://github.com/mavenlink/mavenlink/commit/#{body}"
 
   robot.hear /what's on production\?/i, getProductionVersion
-  robot.respond /version production/i, getProductionVersion
+  robot.respond /prod sha/i, getProductionVersion
