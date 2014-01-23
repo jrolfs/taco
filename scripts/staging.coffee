@@ -40,11 +40,13 @@ module.exports = (robot) ->
       response = "I don't know about any stagings."
     else
       responses = []
+
       for own key, obj of stagings
-        if obj.locked
+        if obj.name
           responses.push "#{key} - #{obj.name} @ #{obj.date}"
         else
           responses.push "#{key} - open"
+
       response = responses.join('\n')
 
     msg.send response
@@ -58,7 +60,6 @@ module.exports = (robot) ->
 
     lockedPacket =
       name: msg.message.user.name
-      locked: true
       date: new Date().toString()
 
     if stagingName == 'all'
@@ -81,9 +82,9 @@ module.exports = (robot) ->
 
       if stagingName == 'all'
         for k,v of stagings
-          stagings[k].locked = false
+          stagings[k] = {}
       else
-        stagings[stagingName].locked = false
+        stagings[stagingName] = {}
 
       robot.brain.set 'stagings', stagings
       msg.send "I've unlocked `#{stagingName}` for you #{msg.message.user.name}."
