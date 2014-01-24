@@ -2,9 +2,9 @@
 #   See who is using staging
 #
 # Commands:
+#   hubot lock :staging | all - locks the staging
+#   hubot unlock :staging | all - unlocks the staging
 #   hubot stagings - lists lock statuses for all stagings
-#   hubot stagings lock :staging | all - locks the staging
-#   hubot stagings unlock :staging | all - unlocks the staging
 #   hubot stagings list - lists lock statuses for all stagings
 #   hubot stagings add :staging - adds a staging environment to memory
 #   hubot stagings remove :staging - removes a staging environment from memory
@@ -54,7 +54,7 @@ module.exports = (robot) ->
   robot.respond /stagings list$/i, listStagings
   robot.respond /stagings$/i, listStagings
 
-  robot.respond /stagings lock (.*)$/i, (msg) ->
+  robot.respond /lock (.*)$/i, (msg) ->
     stagingName = msg.match[1]
     stagings = robot.brain.get('stagings') || {}
 
@@ -72,7 +72,7 @@ module.exports = (robot) ->
 
     msg.send "I've locked `#{stagingName}` for you #{msg.message.user.name}."
 
-  robot.respond /stagings unlock (.*)$/i, (msg) ->
+  robot.respond /unlock (.*)$/i, (msg) ->
     stagingName = msg.match[1]
     stagings = robot.brain.get('stagings') || {}
 
