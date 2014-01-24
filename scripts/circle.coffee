@@ -17,4 +17,6 @@ module.exports = (robot) ->
         .header('Accept', 'application/json')
         .get() (err, res, body) ->
           data = JSON.parse(body)
-          msg.send "#{data[0].status}"
+          msg.send """
+            #{data[0].status} (#{data[0].committer_name}) - #{data[0].build_url}
+            """
