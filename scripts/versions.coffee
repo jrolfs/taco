@@ -2,8 +2,7 @@
 #   See what versions are on staging/production
 #
 # Commands:
-#   hubot version staging
-#   hubot version production
+#   hubot prod sha
 
 module.exports = (robot) ->
   getProductionVersion = (msg) ->
