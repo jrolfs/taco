@@ -2,13 +2,22 @@
 #   See what versions are on staging/production
 #
 # Commands:
-#   hubot prod sha
+#   mavbot prod sha
+#   mavbot prod diff
 
 module.exports = (robot) ->
-  getProductionVersion = (msg) ->
+  getProductionVersion = (msg, cb) ->
     msg.http("http://app.mavenlink.com/version.txt")
       .get() (err, res, body) ->
-        msg.send "#{body} - https://github.com/mavenlink/mavenlink/commit/#{body}"
+        cb(body)
 
-  robot.hear /what's on production\?/i, getProductionVersion
-  robot.respond /prod sha/i, getProductionVersion
+  sendCommitUrl = (msg) ->
+    getProductionVersion msg, (sha) ->
+      msg.send "#{sha} - https://github.com/mavenlink/mavenlink/commit/#{sha}"
+
+  sendCompareUrl = (msg) ->
+    getProductionVersion msg, (sha) ->
+      msg.send "#{sha} - https://github.com/mavenlink/mavenlink/compare/#{sha}...master"
+
+  robot.respond /prod sha/i, sendCommitUrl
+  robot.respond /prod diff/i, sendCompareUrl
