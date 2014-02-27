@@ -24,7 +24,7 @@ module.exports = (robot) ->
   robot.respond /stagings remove (.*)$/i, (msg) ->
     if msg.match[1]
       stagings = robot.brain.get 'stagings' || {}
-      delete stagings[msg.match[1]] =
+      delete stagings[msg.match[1]]
       robot.brain.set 'stagings', stagings
 
       msg.send "Removed #{msg.match[1]} from memory."
