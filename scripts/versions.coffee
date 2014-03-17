@@ -4,6 +4,8 @@
 # Commands:
 #   mavbot prod sha
 #   mavbot prod diff
+#   mavbot mobile sha
+#   mavbot mobile diff
 
 module.exports = (robot) ->
   getProductionVersion = (msg, cb) ->
