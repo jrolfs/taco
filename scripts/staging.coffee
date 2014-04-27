@@ -58,8 +58,10 @@ module.exports = (robot) ->
     stagingName = msg.match[1]
     stagings = robot.brain.get('stagings') || {}
 
+    username = msg.message.user.name
+
     lockedPacket =
-      name: msg.message.user.name
+      name: username
       date: new Date().toString()
       locked: true
 
@@ -67,7 +69,7 @@ module.exports = (robot) ->
       msg.send "I don't know about that staging."
       return
 
-    if stagingName != 'all' && stagings[stagingName].locked
+    if stagingName != 'all' && stagings[stagingName].locked && stagings[stagingName].name != username
       msg.send "That staging is already locked by #{stagings[stagingName].name}."
       return
 
