@@ -6,6 +6,7 @@
 #   mavbot prod diff
 #   mavbot mobile sha
 #   mavbot mobile diff
+#   mavbot announce deploy SHA - this will announce the deploy to @here and print the git compare link to the current sha in production
 
 module.exports = (robot) ->
   getProductionVersion = (msg, cb) ->
