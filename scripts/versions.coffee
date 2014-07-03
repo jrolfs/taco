@@ -41,7 +41,7 @@ module.exports = (robot) ->
 
     if deployedSha? && deployedSha != ''
       getProductionVersion msg, (productionSha) ->
-        msg.send "@here Deploying to production\nhttps://github.com/mavenlink/mobile/compare/#{productionSha}...#{deployedSha}"
+        msg.send "@here Deploying to production\nhttps://github.com/mavenlink/mavenlink/compare/#{productionSha}...#{deployedSha}"
     else
       msg.send "Please provide the sha that is being deployed ex. announce deploy 60c629782dc062af7d52a93993e6c3ef3ee20624"
 
