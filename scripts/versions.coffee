@@ -34,8 +34,20 @@ module.exports = (robot) ->
     getMobileVersion msg, (sha) ->
       msg.send "#{sha}\nhttps://github.com/mavenlink/mobile/compare/#{sha}...master"
 
+  sendAnnouncement = (msg) ->
+    deployed_sha = msg.match[1]
+    deployed_sha = deployed_sha.trim()
+
+    if deployed_sha? && deployed_sha != ''
+      getProductionVersion msg, (production_sha) ->
+        msg.send "@here Deploying to production\nhttps://github.com/mavenlink/mobile/compare/#{production_sha}...#{deployed_sha}"
+    else
+      msg.send "Please provide the sha that is being deployed ex. announce deploy 60c629782dc062af7d52a93993e6c3ef3ee20624"
+
+
   robot.respond /prod sha/i, sendProdCommitUrl
   robot.respond /prod diff/i, sendProdCompareUrl
+  robot.respond /announce deploy(.*)/i, sendAnnouncement
 
   robot.respond /mobile sha/i, sendMobileCommitUrl
   robot.respond /mobile diff/i, sendMobileCompareUrl
