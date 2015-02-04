@@ -1,1 +1,1 @@
-web: bin/start-hubot.sh
+bot: bin/start-hubot.sh
