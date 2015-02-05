@@ -54,6 +54,25 @@ module.exports = (robot) ->
   robot.respond /stagings list$/i, listStagings
   robot.respond /stagings$/i, listStagings
 
+  robot.respond /commandeer (.*)$/i, (msg) ->
+    stagingName = msg.match[1]
+    stagings = robot.brain.get('stagings') || {}
+    username = msg.message.user.name
+    isOps = username.toLowerCase().indexOf('jon bardin') != -1
+
+    if isOps
+      lockedPacket =
+        name: username
+        date: new Date().toString()
+        locked: true
+
+      stagings[stagingName] = lockedPacket
+
+      robot.brain.set 'stagings', stagings
+      msg.send "I've locked `#{stagingName}` for you #{msg.message.user.name}."
+    else
+      msg.send "#{msg.message.user.name} you are not the O.P.S."
+
   robot.respond /lock (.*)$/i, (msg) ->
     stagingName = msg.match[1]
     stagings = robot.brain.get('stagings') || {}
