@@ -20,6 +20,9 @@ module.exports = (robot) ->
   robot.respond /TIME$/i, (msg) ->
     msg.send "Server time is: #{new Date()}"
 
+  robot.respond /wa(z+)up/i, (msg) ->
+    msg.send ("wa" + ("z".repeat(msg.lastIndexOf('z'))) + "up")
+
   robot.respond /DIE$/i, (msg) ->
     msg.send "Goodbye, cruel world."
     process.exit 0
