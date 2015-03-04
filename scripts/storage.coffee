@@ -66,7 +66,7 @@ module.exports = (robot) ->
   robot.respond /clear facts$/i, (msg) ->
     username = msg.message.user.name
     isOps = username.toLowerCase().indexOf('jon bardin') != -1
-    isBen = username.toLowerCase().indexOf('ben') != -1
+    isBen = username.toLowerCase().indexOf('ben nappier') != -1
 
     if isOps || isBen
       robot.brain.set('facts', {})
