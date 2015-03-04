@@ -23,7 +23,7 @@ module.exports = (robot) ->
   robot.respond /wa(z+)up/i, (msg) ->
     msg.send ("wa" + (Array((2 + msg.match[1].lastIndexOf('z')) * 4).join("z")) + "up")
 
-  robot.respond /love slack$/i, (msg) ->
+  robot.respond /(.*)love slack(.*)/i, (msg) ->
     msg.send "OOOMMMMMGGGGG I LOOOOOOOOOOOOOOVVEEEEE IT SO MUCH"
 
   robot.respond /DIE$/i, (msg) ->
