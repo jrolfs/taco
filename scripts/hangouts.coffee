@@ -16,7 +16,7 @@ module.exports = (robot) ->
   listHangouts = (msg) ->
     hangouts = {
       "monday-kickoff": "Monday Kickoff",
-      "wip-demos": "WIP Demos & Maven Talks,
+      "wip-demos": "WIP Demos & Maven Talks",
       "pentagon-bobby": "The Pentagon Standup",
       "ds5-standup": "Deep Space 5 Standup",
       "5loko-ben": "5Loko Standup",
@@ -28,11 +28,10 @@ module.exports = (robot) ->
     else
       responses = []
 
-      hangouts.each do | key, name |
+      for key, name of hangouts
         responses.push "#{name}: https://plus.google.com/hangouts/_/mavenlink.com/#{key}"
 
       response = responses.join('\n')
-
     msg.send response
 
   robot.respond /hangouts list$/i, listHangouts
