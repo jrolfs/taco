@@ -27,7 +27,6 @@ module.exports = (robot) ->
     hangoutName = msg.match[1]
     hangoutLink = "https://plus.google.com/hangouts/_/mavenlink.com/#{hangoutName}"
     user = msg.message.user.name
-    console.log user
     downloadUrl 'https://gender-api.com/get?name=' + user, (res, data) ->
       sirVar = "come one come all! "
       sirVar = "Miss" if data.gender == "female"
