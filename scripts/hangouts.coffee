@@ -14,14 +14,11 @@ module.exports = (robot) ->
       data = ""
       res.on 'data', (chunk) ->
         data += chunk
-        return
       res.on 'end', ->
         if res.statusCode is 200
           callback null, data
         else
           callback(new Error("Response status code: " + res.statusCode), data)
-        return
-      return
 
   robot.respond /hangout (.*)$/i, (msg) ->
     hangoutName = msg.match[1]
