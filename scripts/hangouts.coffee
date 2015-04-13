@@ -6,12 +6,31 @@
 #   hubot hangouts - lists all of the hangouts today (TODO)
 
 Util = require "util"
+https = require "https"
 
 module.exports = (robot) ->
+  downloadUrl = (url, callback) ->
+     https.get url, (res) ->
+      data = ""
+      res.on 'data', (chunk) ->
+        data += chunk
+      res.on 'end', ->
+        if res.statusCode is 200
+          callback null, data
+        else
+          callback(new Error("Response status code: " + res.statusCode), data)
+
   robot.respond /hangout (.*)$/i, (msg) ->
     hangoutName = msg.match[1]
     hangoutLink = "https://plus.google.com/hangouts/_/mavenlink.com/#{hangoutName}"
-    msg.send "Your Hangout, sir: #{hangoutLink}"
+    user = msg.message.user.name
+    downloadUrl 'https://gender-api.com/get?name=' + user, (res, data) ->
+      sirVar = "come one come all! "
+      sirVar = "Miss" if data.gender == "female"
+      sirVar = "Sir" if data.gender == "male"
+      sirVar = "Sir" if data.name == "racerpeter"
+
+      msg.send "Your Hangout, #{sirVar}: #{hangoutLink}"
 
   listHangouts = (msg) ->
     hangouts = {
