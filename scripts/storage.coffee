@@ -74,15 +74,10 @@ module.exports = (robot) ->
   robot.respond /forget everything about (.*)/i, (msg) ->
     article = msg.match[1]
 
-    username = msg.message.user.name
-    isOps = username.toLowerCase().indexOf('jon bardin') != -1
-    isBen = username.toLowerCase().indexOf('ben nappier') != -1
+    if not (facts = robot.brain.get('facts'))
+      robot.brain.set('facts', {})
 
-    if isOps || isBen
-      if not (facts = robot.brain.get('facts'))
-        robot.brain.set('facts', {})
-
-      delete facts[article]
+    delete facts[article]
 
     output = 'Everything is gone about ' + article
     msg.send output
