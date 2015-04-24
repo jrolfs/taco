@@ -23,7 +23,7 @@ module.exports = (robot) ->
 
     msg.send response
 
-  robot.respond /did you know (.*)about (.*)/i, (msg) ->
+  robot.respond /did you know (.*) about (.*)/i, (msg) ->
     fact = msg.match[1]
     article = msg.match[2].toLowerCase()
 
@@ -38,7 +38,7 @@ module.exports = (robot) ->
         output = 'Yeah I know that ' + brain_fact
       else
         facts[article].push(fact)
-        output = 'I did not know ' + fact
+        output = 'I did not know ' + fact + ' about ' + article
     else
       facts[article] = []
       facts[article].push(fact)
@@ -48,7 +48,7 @@ module.exports = (robot) ->
     msg.send output
 
   robot.respond /tell me something about (.*)/i, (msg) ->
-    article = msg.match[1]
+    article = msg.match[1].toLowerCase()
 
     if not (facts = robot.brain.get('facts'))
       robot.brain.set('facts', {})
@@ -80,4 +80,19 @@ module.exports = (robot) ->
     delete facts[article]
 
     output = 'Everything is gone about ' + article
+    msg.send output
+
+  robot.respond /tell me everything about (.*)/i, (msg) ->
+    article = msg.match[1].toLowerCase()
+
+    if not (facts = robot.brain.get('facts'))
+      robot.brain.set('facts', {})
+
+    brain_article = facts[article]
+
+    if brain_article
+      output = brain_article.join(", ")
+    else
+      output = 'I do not know anything about ' + article
+
     msg.send output
