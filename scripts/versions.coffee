@@ -43,7 +43,6 @@ module.exports = (robot) ->
     getMobileVersion msg, (sha) ->
       msg.send "#{sha}\nhttps://github.com/mavenlink/mobile/compare/#{sha}...master"
 
-
   sendMarketingCommitUrl = (msg) ->
     getMarketingVersion msg, (sha) ->
       msg.send "#{sha}\nhttps://github.com/mavenlink/marketing/commit/#{sha}"
