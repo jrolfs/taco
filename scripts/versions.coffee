@@ -14,18 +14,18 @@
 module.exports = (robot) ->
   getProductionVersion = (msg, cb) ->
     msg.http("http://app.mavenlink.com/version.txt")
-    .get() (err, res, body) ->
-      cb(body.trim())
+      .get() (err, res, body) ->
+        cb(body.trim())
 
   getMobileVersion = (msg, cb) ->
     msg.http("http://m.mavenlink.com/version.txt")
-    .get() (err, res, body) ->
-      cb(body.trim())
+      .get() (err, res, body) ->
+        cb(body.trim())
 
   getMarketingVersion = (msg, cb) ->
     msg.http("http://www.mavenlink.com/version.txt")
-    .get() (err, res, body) ->
-      cb(body.trim())
+      .get() (err, res, body) ->
+        cb(body.trim())
 
   sendProdCommitUrl = (msg) ->
     getProductionVersion msg, (sha) ->
