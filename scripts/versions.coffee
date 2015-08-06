@@ -16,7 +16,7 @@ module.exports = (robot) ->
   class Site
     getVersion: (msg, cb) ->
       msg.http("http://#{@prefix}.mavenlink.com/version.txt")
-      .get() (err, res, body) ->
+      .get(err, res, body) ->
         cb(body.trim())
 
     sendCommitUrl: (msg) ->
