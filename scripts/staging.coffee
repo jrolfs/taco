@@ -43,7 +43,7 @@ module.exports = (robot) ->
 
       for own key, obj of stagings
         if obj.name
-          responses.push "#{key} - #{obj.name} @ #{obj.date}"
+          responses.push "#{key} - @#{obj.name} at #{obj.date}"
         else
           responses.push "#{key} - open"
 
