@@ -1,1 +1,1 @@
-bot: bin/start-hubot.sh
+bot: bin/hubot -a slack
