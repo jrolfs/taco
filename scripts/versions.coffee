@@ -14,27 +14,27 @@
 module.exports = (robot) ->
 
   class Site
-    getVersion: (msg, cb) ->
+    getVersion: (msg, cb) =>
       msg.http("http://#{@prefix}.mavenlink.com/version.txt")
-      .get(err, res, body) ->
+      .get() (err, res, body) ->
         cb(body.trim())
 
-    sendCommitUrl: (msg) ->
-      @getVersion msg, (sha) ->
-        msg.send "#{sha}\nhttps://github.com/mavenlink/mavenlink/commit/#{sha}"
+    sendCommitUrl: (msg) =>
+      @getVersion msg, (sha) =>
+        msg.send "#{sha}\nhttps://github.com/mavenlink/#{@gitHubRepo}/commit/#{sha}"
 
-    sendAnnouncement: (msg) ->
+    sendAnnouncement: (msg) =>
       deployedSha = msg.match[1]
       deployedSha = deployedSha.trim()
 
       if deployedSha? && deployedSha != ''
-        @getVersion msg, (sha) ->
-          msg.send "@group Deploying to production\nhttps://github.com/mavenlink/#{@gitHubRepo}/compare/#{sha}...#{deployedSha}"
+        @getVersion msg, (sha) =>
+          msg.send "@group Deploying to #{@gitHubRepo}\nhttps://github.com/mavenlink/#{@gitHubRepo}/compare/#{sha}...#{deployedSha}"
       else
         msg.send "Please provide the sha that is being deployed ex. announce deploy 60c629782dc062af7d52a93993e6c3ef3ee20624"
 
-    sendCompareUrl: (msg) ->
-      @getVersion msg, (sha) ->
+    sendCompareUrl: (msg) =>
+      @getVersion msg, (sha) =>
         msg.send "#{sha}\nhttps://github.com/mavenlink/#{@gitHubRepo}/compare/#{sha}...master"
 
   class Mobile extends Site
