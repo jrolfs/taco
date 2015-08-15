@@ -4,6 +4,7 @@
 # Commands:
 #   hubot translate me <phrase> - searches for a translation for <phrase> and prints it out in English.
 #   hubot translate from <source> into <target> <phrase> - Translates <phrase> from <source> into <target>.
+#   hubot languages - Returns list of languages that can be used in 'translate from <source> to <target>
 
 module.exports = (robot) ->
 
@@ -23,5 +24,8 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
         msg.send JSON.parse(body).text
 
+  robot.respond /languages/i, (msg) ->
+    msg.http("https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=#{api_key}")
     .get() (err, res, body) ->
-      msg.send JSON.parse(body).text
+      msg.send JSON.parse(body).dirs
+      msg.send("For more info on languages: https://tech.yandex.com/translate/doc/dg/concepts/langs-docpage/")
