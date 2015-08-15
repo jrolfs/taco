@@ -11,7 +11,7 @@ module.exports = (robot) ->
 
   robot.respond /translate me (.*)/i, (msg) ->
     lang = 'en'
-    text = msg.match[1]
+    text = "#{msg.match[1]}".split(' ').join('+')
     msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
       .get() (err, res, body) ->
          msg.send JSON.parse(body).text
