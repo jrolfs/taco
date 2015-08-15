@@ -8,4 +8,3 @@ module.exports = (robot) ->
 
   robot.respond /grump me/i, (msg) ->
     msg.send "http://i.imgur.com/Cxagv.jpg"
-
