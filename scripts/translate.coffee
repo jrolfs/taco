@@ -3,7 +3,7 @@
 #
 # Commands:
 #   hubot translate me <phrase> - searches for a translation for <phrase> and prints it out in English.
-#   hubot translate me from <source> into <target> <phrase> - Translates <phrase> from <source> into <target>.
+#   hubot translate from <source> into <target> <phrase> - Translates <phrase> from <source> into <target>.
 
 module.exports = (robot) ->
 
@@ -16,9 +16,12 @@ module.exports = (robot) ->
       .get() (err, res, body) ->
          msg.send JSON.parse(body).text
 
-  robot.respond /translate me from ([\w .\-_]+) to ([\w .\-_]+) (.*)/i, (msg) ->
-    lang = "#{msg.match[1]}-#{msg.match[2]}"
-    text = msg.match[3]
-    msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
+  robot.respond /translate from ([\w .\-_]+) to ([\w .\-_]+) this (.*)/i, (msg) ->
+      lang = "#{msg.match[1]}-#{msg.match[2]}"
+      text = "#{msg.match[3]}".split(' ').join('+')
+      msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
+      .get() (err, res, body) ->
+        msg.send JSON.parse(body).text
+
     .get() (err, res, body) ->
       msg.send JSON.parse(body).text
