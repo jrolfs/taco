@@ -6,61 +6,58 @@
 #   mavbot prod diff
 #   mavbot mobile sha
 #   mavbot mobile diff
+#   mavbot marketing sha
+#   mavbot marketing diff
 #   mavbot announce deploy SHA - this will announce the deploy to @group and print the git compare link to the current sha in production
 #   mavbot mobile announce deploy SHA
 
 module.exports = (robot) ->
-  getProductionVersion = (msg, cb) ->
-    msg.http("http://app.mavenlink.com/version.txt")
+
+  class Site
+    getVersion: (msg, cb) =>
+      msg.http("http://#{@prefix}.mavenlink.com/version.txt")
       .get() (err, res, body) ->
         cb(body.trim())
 
-  getMobileVersion = (msg, cb) ->
-    msg.http("http://m.mavenlink.com/version.txt")
-      .get() (err, res, body) ->
-        cb(body.trim())
+    sendCommitUrl: (msg) =>
+      @getVersion msg, (sha) =>
+        msg.send "#{sha}\nhttps://github.com/mavenlink/#{@gitHubRepo}/commit/#{sha}"
 
-  sendProdCommitUrl = (msg) ->
-    getProductionVersion msg, (sha) ->
-      msg.send "#{sha}\nhttps://github.com/mavenlink/mavenlink/commit/#{sha}"
+    sendAnnouncement: (msg) =>
+      deployedSha = msg.match[1]
+      deployedSha = deployedSha.trim()
 
-  sendProdCompareUrl = (msg) ->
-    getProductionVersion msg, (sha) ->
-      msg.send "#{sha}\nhttps://github.com/mavenlink/mavenlink/compare/#{sha}...master"
+      if deployedSha? && deployedSha != ''
+        @getVersion msg, (sha) =>
+          msg.send "@group Deploying to #{@gitHubRepo}\nhttps://github.com/mavenlink/#{@gitHubRepo}/compare/#{sha}...#{deployedSha}"
+      else
+        msg.send "Please provide the sha that is being deployed ex. announce deploy 60c629782dc062af7d52a93993e6c3ef3ee20624"
 
-  sendMobileCommitUrl = (msg) ->
-    getMobileVersion msg, (sha) ->
-      msg.send "#{sha}\nhttps://github.com/mavenlink/mobile/commit/#{sha}"
+    sendCompareUrl: (msg) =>
+      @getVersion msg, (sha) =>
+        msg.send "#{sha}\nhttps://github.com/mavenlink/#{@gitHubRepo}/compare/#{sha}...master"
 
-  sendMobileCompareUrl = (msg) ->
-    getMobileVersion msg, (sha) ->
-      msg.send "#{sha}\nhttps://github.com/mavenlink/mobile/compare/#{sha}...master"
+  class Mobile extends Site
+    prefix: "m"
+    gitHubRepo: "mobile"
 
-  sendAnnouncement = (msg) ->
-    deployedSha = msg.match[1]
-    deployedSha = deployedSha.trim()
+  class Production extends Site
+    prefix: "app"
+    gitHubRepo: "mavenlink"
 
-    if deployedSha? && deployedSha != ''
-      getProductionVersion msg, (productionSha) ->
-        msg.send "@group Deploying to production\nhttps://github.com/mavenlink/mavenlink/compare/#{productionSha}...#{deployedSha}"
-    else
-      msg.send "Please provide the sha that is being deployed ex. announce deploy 60c629782dc062af7d52a93993e6c3ef3ee20624"
-
-  sendMobileAnnouncement = (msg) ->
-    deployedSha = msg.match[1]
-    deployedSha = deployedSha.trim()
-
-    if deployedSha? && deployedSha != ''
-      getMobileVersion msg, (productionSha) ->
-        msg.send "@group Deploying mobile to production\nhttps://github.com/mavenlink/mobile/compare/#{productionSha}...#{deployedSha}"
-    else
-      msg.send "Please provide the sha that is being deployed ex. announce deploy 14c0f16ff0fddfcf65db43bd10860ba0e69fdd15"
+  class Marketing extends Site
+    prefix: "www"
+    gitHubRepo: "marketing"
 
 
-  robot.respond /prod sha/i, sendProdCommitUrl
-  robot.respond /prod diff/i, sendProdCompareUrl
-  robot.respond /announce deploy(.*)/i, sendAnnouncement
+  robot.respond /prod sha/i, (new Production).sendCommitUrl
+  robot.respond /prod diff/i, (new Production).sendCompareUrl
+  robot.respond /announce deploy(.*)/i, (new Production).sendAnnouncement
 
-  robot.respond /mobile sha/i, sendMobileCommitUrl
-  robot.respond /mobile diff/i, sendMobileCompareUrl
-  robot.respond /mobile announce deploy(.*)/i, sendMobileAnnouncement
+  robot.respond /mobile sha/i, (new Mobile).sendCommitUrl
+  robot.respond /mobile diff/i, (new Mobile).sendCompareUrl
+  robot.respond /mobile announce deploy(.*)/i, (new Mobile).sendAnnouncement
+
+  robot.respond /marketing sha/i, (new Marketing).sendCommitUrl
+  robot.respond /marketing diff/i, (new Marketing).sendCompareUrl
+  robot.respond /marketing announce deploy(.*)/i, (new Marketing).sendAnnouncement
