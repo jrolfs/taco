@@ -11,31 +11,46 @@
 #   hubot stagings remove :staging - removes a staging environment from memory
 #   hubot stagings clear - removes all staging environments from memory
 
+
 Util = require "util"
+
 
 module.exports = (robot) ->
   robot.respond /stagings add (.*)$/i, (msg) ->
     if msg.match[1]
-      stagings = robot.brain.get 'stagings' || {}
+      stagings = robot.brain.get('stagings') || {}
       stagings[msg.match[1]] = {}
       robot.brain.set 'stagings', stagings
 
       msg.send "Added #{msg.match[1]} to memory."
 
+
+  #
+  # Remove
+
   robot.respond /stagings remove (.*)$/i, (msg) ->
     if msg.match[1]
-      stagings = robot.brain.get 'stagings' || {}
+      stagings = robot.brain.get('stagings') || {}
       delete stagings[msg.match[1]]
       robot.brain.set 'stagings', stagings
 
       msg.send "Removed #{msg.match[1]} from memory."
 
+
+  #
+  # Clear
+
   robot.respond /stagings clear$/i, (msg) ->
     robot.brain.set 'stagings', {}
     msg.send 'All stagings cleared'
 
-  listStagings = (msg) ->
-    stagings = robot.brain.get 'stagings' || {}
+
+  #
+  # List
+
+  robot.respond /stagings(!*)( list(!*))*$/, (msg) ->
+    stagings = robot.brain.get('stagings') || {}
+    mention = (msg.match[1] || msg.match[3]) == '!'
 
     if not Object.keys(stagings).length
       response = "I don't know about any stagings."
@@ -45,7 +60,7 @@ module.exports = (robot) ->
       for own key, obj of stagings
         if obj.name
           subjectMsg = if obj.subject then " with:#{obj.subject}" else ''
-          responses.push "#{key} - #{obj.name} @ #{obj.date}#{subjectMsg}"
+          responses.push "#{key} - #{if mention then '@' else ''}#{obj.name} at #{obj.date}#{subjectMsg}"
         else
           responses.push "#{key} - open"
 
@@ -53,8 +68,9 @@ module.exports = (robot) ->
 
     msg.send response
 
-  robot.respond /stagings list$/i, listStagings
-  robot.respond /stagings$/i, listStagings
+
+  #
+  # Commandeer
 
   robot.respond /commandeer (.*)$/i, (msg) ->
     stagingName = msg.match[1]
@@ -75,7 +91,11 @@ module.exports = (robot) ->
     else
       msg.send "#{msg.message.user.name} you are not the O.P.S."
 
-  robot.respond /lock (staging\d{1,3})( with:\w+)?( for:.+)?$/i, (msg) ->
+
+  #
+  # Lock
+
+  robot.respond /lock (staging\d+)( with:\w+)?( for:.+)?$/i, (msg) ->
     stagingName = msg.match[1]
     subject = msg.match[2]
     assignee = msg.match[3]
@@ -112,6 +132,10 @@ module.exports = (robot) ->
 
     subjectMsg = if subject then " with:#{subject}" else ''
     msg.send "I've locked `#{stagingName}` for:#{username}#{subjectMsg}."
+
+
+  #
+  # Unlock
 
   robot.respond /unlock (.*)$/i, (msg) ->
     stagingName = msg.match[1]
