@@ -6,7 +6,8 @@
 #   hubot lock :staging with:subject for:assignee | `with:subject`, `for:assignee` are optional, but should be in this order
 #   hubot unlock :staging | all - unlocks the staging
 #   hubot stagings - lists lock statuses for all stagings
-#   hubot stagings list - lists lock statuses for all stagings
+#   hubot stagings! - lists lock statuses for all stagings, and mentions owners
+#   hubot stagings list! - lists lock statuses for all stagings, and mentions owners
 #   hubot stagings add :staging - adds a staging environment to memory
 #   hubot stagings remove :staging - removes a staging environment from memory
 #   hubot stagings clear - removes all staging environments from memory
