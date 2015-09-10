@@ -15,14 +15,14 @@ module.exports = (robot) ->
     text = "#{msg.match[1]}".split(' ').join('+')
     msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
       .get() (err, res, body) ->
-         msg.send JSON.parse(body).text
+        msg.send JSON.parse(body).text
 
   robot.respond /translate from ([\w .\-_]+) to ([\w .\-_]+) this (.*)/i, (msg) ->
-      lang = "#{msg.match[1]}-#{msg.match[2]}"
-      text = "#{msg.match[3]}".split(' ').join('+')
-      msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
-      .get() (err, res, body) ->
-        msg.send JSON.parse(body).text
+    lang = "#{msg.match[1]}-#{msg.match[2]}"
+    text = "#{msg.match[3]}".split(' ').join('+')
+    msg.http("https://translate.yandex.net/api/v1.5/tr.json/translate?key=#{api_key}&lang=#{lang}&text=#{text}")
+    .get() (err, res, body) ->
+      msg.send JSON.parse(body).text
 
   robot.respond /yandex languages/i, (msg) ->
     msg.http("https://translate.yandex.net/api/v1.5/tr.json/getLangs?key=#{api_key}")
