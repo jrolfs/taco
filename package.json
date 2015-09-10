@@ -23,6 +23,7 @@
   "dependencies": {
     "hubot": ">= 2.6.0 < 3.0.0",
     "hubot-business-cat": "^1.2.4",
+    "hubot-circleci": "^0.8.1",
     "hubot-devops-reactions": "^1.0.2",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "^0.1.5",
