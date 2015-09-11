@@ -11,5 +11,6 @@
   "hubot-youtube",
   "hubot-business-cat",
   "hubot-devops-reactions",
-  "hubot-circleci"
+  "hubot-circleci",
+  "hubot-auth"
 ]
