@@ -13,5 +13,6 @@
   "hubot-devops-reactions",
   "hubot-circleci",
   "hubot-auth",
-  "hubot-team"
+  "hubot-team",
+  "hubot-mute",
 ]
