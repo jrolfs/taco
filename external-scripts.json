@@ -18,5 +18,6 @@
   "hubot-tell",
   "hubot-thank-you",
   "hubot-sentimental",
-  "hubot-fliptable"
+  "hubot-fliptable",
+  "hubot-reaction"
 ]
