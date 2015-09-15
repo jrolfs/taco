@@ -39,6 +39,7 @@
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "~3.3.0",
     "hubot-team": "^2.0.0",
+    "hubot-tell": "^1.2.4",
     "hubot-youtube": "^1.0.1"
   },
   "engines": {

@@ -15,4 +15,5 @@
   "hubot-auth",
   "hubot-team",
   "hubot-mute",
+  "hubot-tell"
 ]
