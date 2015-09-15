@@ -15,5 +15,6 @@
   "hubot-auth",
   "hubot-team",
   "hubot-mute",
-  "hubot-tell"
+  "hubot-tell",
+  "hubot-thank-you"
 ]

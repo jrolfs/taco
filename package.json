@@ -40,6 +40,7 @@
     "hubot-slack": "~3.3.0",
     "hubot-team": "^2.0.0",
     "hubot-tell": "^1.2.4",
+    "hubot-thank-you": "0.0.3",
     "hubot-youtube": "^1.0.1"
   },
   "engines": {
