@@ -12,5 +12,6 @@
   "hubot-business-cat",
   "hubot-devops-reactions",
   "hubot-circleci",
-  "hubot-auth"
+  "hubot-auth",
+  "hubot-team"
 ]
