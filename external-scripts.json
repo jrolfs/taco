@@ -17,5 +17,6 @@
   "hubot-mute",
   "hubot-tell",
   "hubot-thank-you",
-  "hubot-sentimental"
+  "hubot-sentimental",
+  "hubot-fliptable"
 ]
