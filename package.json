@@ -38,7 +38,7 @@
     "hubot-redis-brain": "0.0.3",
     "hubot-rules": "^0.1.1",
     "hubot-scripts": "^2.16.1",
-    "hubot-sentimental": "^1.0.5",
+    "hubot-sentiment": "^1.2.6",
     "hubot-shipit": "^0.2.0",
     "hubot-slack": "~3.3.0",
     "hubot-team": "^2.0.0",
