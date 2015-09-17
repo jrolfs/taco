@@ -25,7 +25,6 @@
     "hubot-auth": "^1.2.0",
     "hubot-business-cat": "^1.2.4",
     "hubot-circleci": "^0.8.1",
-    "hubot-devops-reactions": "^1.0.2",
     "hubot-diagnostics": "0.0.1",
     "hubot-fliptable": "^1.2.0",
     "hubot-google-images": "^0.1.5",
